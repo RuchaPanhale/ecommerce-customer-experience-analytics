@@ -82,3 +82,38 @@ SELECT n_orders, COUNT(*) AS people
 FROM orders_per_person
 GROUP BY n_orders
 ORDER BY n_orders;
+
+-- ========== raw.order_reviews ==========
+
+-- 10. Keys: is review_id unique? Is order_id unique in this table?
+SELECT
+    COUNT(*)                  AS total_rows,
+    COUNT(DISTINCT review_id) AS distinct_review_ids,
+    COUNT(DISTINCT order_id)  AS distinct_order_ids
+FROM raw.order_reviews;
+
+-- 11. How many orders have 1, 2, 3... reviews
+WITH reviews_per_order AS (
+    SELECT order_id, COUNT(*) AS n_reviews
+    FROM raw.order_reviews
+    GROUP BY order_id
+)
+SELECT n_reviews, COUNT(*) AS orders
+FROM reviews_per_order
+GROUP BY n_reviews
+ORDER BY n_reviews;
+
+-- 12. Score distribution, and how many reviews have no written comment
+SELECT
+    review_score,
+    COUNT(*)                                AS reviews,
+    COUNT(*) - COUNT(review_comment_message) AS no_comment
+FROM raw.order_reviews
+GROUP BY review_score
+ORDER BY review_score;
+
+-- 13. Orders with no review at all
+SELECT COUNT(*) AS orders_without_review
+FROM raw.orders o
+LEFT JOIN raw.order_reviews r ON o.order_id = r.order_id
+WHERE r.order_id IS NULL;

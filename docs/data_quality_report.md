@@ -31,3 +31,7 @@ with `scripts/load_raw.py`.
 | customers | Repeat buyers are rare: 93,099 people placed 1 order; 2,997 placed 2 or more (all statuses) | 2,997 | Report counts with every repeat-rate result; flag small groups |
 | customers | One customer_unique_id has 17 orders, one has 9 | 2 | Kept; check later whether these look like business buyers |
 | customers | No nulls in unique_id, zip, city or state | 0 | No action |
+| order_reviews | Some orders have more than one review (543 with 2, 4 with 3) | 551 extra rows | Keep one review per order (most recent) before joining; decide exact rule on Day 2 |
+| order_reviews | review_id is not unique (99,224 rows, 98,410 distinct) | 814 extra rows | Do not use review_id alone as a key |
+| order_reviews | Orders with no review | 768 | Excluded from review-score analysis; kept for delivery metrics |
+| order_reviews | Reviews with no written comment (much more common at 4–5 stars) | 58,247 | Kept for score analysis; only commented reviews go to Q4 classification |
