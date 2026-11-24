@@ -54,3 +54,31 @@ SELECT
 FROM raw.orders
 GROUP BY order_month
 ORDER BY order_month;
+
+-- ========== raw.customers ==========
+
+-- 7. Keys: order-level customer_id vs real person (customer_unique_id)
+SELECT
+    COUNT(*)                           AS total_rows,
+    COUNT(DISTINCT customer_id)        AS distinct_customer_ids,
+    COUNT(DISTINCT customer_unique_id) AS distinct_people
+FROM raw.customers;
+
+-- 8. Nulls per column
+SELECT
+    COUNT(*) - COUNT(customer_unique_id)       AS null_unique_id,
+    COUNT(*) - COUNT(customer_zip_code_prefix) AS null_zip,
+    COUNT(*) - COUNT(customer_city)            AS null_city,
+    COUNT(*) - COUNT(customer_state)           AS null_state
+FROM raw.customers;
+
+-- 9. How many people placed 1, 2, 3... orders (all statuses, profiling only)
+WITH orders_per_person AS (
+    SELECT customer_unique_id, COUNT(*) AS n_orders
+    FROM raw.customers
+    GROUP BY customer_unique_id
+)
+SELECT n_orders, COUNT(*) AS people
+FROM orders_per_person
+GROUP BY n_orders
+ORDER BY n_orders;

@@ -27,3 +27,7 @@ with `scripts/load_raw.py`.
 | orders | Status "canceled" but has a delivered-to-customer date | 6 | Treated as canceled; excluded from delivery metrics |
 | orders | Status "delivered" but no approval date (14) or no carrier date (2) | 16 | Kept; these dates are not used in delivery metrics |
 | orders | Incomplete months: 2016-09 (4), 2016-10 (324), 2016-11 (no orders), 2016-12 (1), 2018-09 (16), 2018-10 (4); none of the 2018-09/10 orders are delivered | 349 | Trend charts use Jan 2017 – Aug 2018 (20 full months); all delivered orders kept for other analyses |
+| customers | customer_id is one per order (99,441), not one per person; real people = customer_unique_id (96,096) | 99,441 | Use customer_unique_id for all customer-level and repeat-purchase analysis |
+| customers | Repeat buyers are rare: 93,099 people placed 1 order; 2,997 placed 2 or more (all statuses) | 2,997 | Report counts with every repeat-rate result; flag small groups |
+| customers | One customer_unique_id has 17 orders, one has 9 | 2 | Kept; check later whether these look like business buyers |
+| customers | No nulls in unique_id, zip, city or state | 0 | No action |
