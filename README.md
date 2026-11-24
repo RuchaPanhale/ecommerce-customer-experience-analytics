@@ -1,10 +1,10 @@
-# E-commerce Customer Experience Analytics
+# E-commerce Customer Experience Analytics: What Drives Bad Reviews and Lost Revenue
 
 **What makes online marketplace customers unhappy, and what is it costing the business?**
 
 🔄 **Status: In progress** (started November 2026)
 
-This project analyzes about 100,000 real orders (2016–2018) from an online marketplace to find what drives bad reviews and lost repeat customers, and to estimate the value of fixing it. It links three things most e-commerce analyses look at separately: **delivery performance → customer reviews → business impact**.
+This project analyzes about 100,000 real orders (2016–2018) from an online marketplace to find what drives bad reviews and lost repeat customers, and to estimate the value of fixing it. It links three things: delivery performance → customer reviews → business impact.
 
 ## Project status
 
