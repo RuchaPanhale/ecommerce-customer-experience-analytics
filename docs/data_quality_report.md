@@ -26,4 +26,4 @@ with `scripts/load_raw.py`.
 | orders | Status "delivered" but no delivered-to-customer date | 8 | Excluded from delivery metrics (definition requires a date) |
 | orders | Status "canceled" but has a delivered-to-customer date | 6 | Treated as canceled; excluded from delivery metrics |
 | orders | Status "delivered" but no approval date (14) or no carrier date (2) | 16 | Kept; these dates are not used in delivery metrics |
-| orders | Purchases span 2016-09-04 to 2018-10-17; first and last months may be incomplete | TBD | Check monthly counts next; exclude incomplete months from trends |
+| orders | Incomplete months: 2016-09 (4), 2016-10 (324), 2016-11 (no orders), 2016-12 (1), 2018-09 (16), 2018-10 (4); none of the 2018-09/10 orders are delivered | 349 | Trend charts use Jan 2017 – Aug 2018 (20 full months); all delivered orders kept for other analyses |

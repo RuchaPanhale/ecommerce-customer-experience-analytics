@@ -45,3 +45,12 @@ SELECT
 FROM raw.orders
 GROUP BY order_status
 ORDER BY orders DESC;
+
+-- 6. Orders per month: find incomplete months at the start and end of the data
+SELECT
+    DATE_TRUNC('month', order_purchase_timestamp::timestamp)::date AS order_month,
+    COUNT(*)                                                       AS orders,
+    COUNT(*) FILTER (WHERE order_status = 'delivered')             AS delivered_orders
+FROM raw.orders
+GROUP BY order_month
+ORDER BY order_month;
