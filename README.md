@@ -1,6 +1,6 @@
 # E-commerce Customer Experience Analytics: What Drives Bad Reviews and Lost Revenue
 
-**What makes online marketplace customers unhappy, and what is it costing the business?**
+**Do late deliveries lead to bad reviews, and what is that costing the business?**
 
 🔄 **Status: In progress** (started November 2026)
 
@@ -10,18 +10,14 @@ This project analyzes about 100,000 real orders (2016–2018) from an online mar
 
 | Step | Status |
 |---|---|
-| Load the raw data and profile all 9 tables | 🔄 In progress |
-| Data quality report, data dictionary, metric definitions | 📋 Planned |
-| Cleaning and star-schema data model (PostgreSQL) | 📋 Planned |
-| Load the data model into Snowflake | 📋 Planned |
-| Q1 Exploratory data analysis | 📋 Planned |
-| Q2 Delivery reliability | 📋 Planned |
-| Q3 Late delivery vs review scores (statistical testing) | 📋 Planned |
-| Q4 Complaint reasons from review text (Claude, validated against hand labels) | 📋 Planned |
-| Q5 Repeat purchases after a bad experience | 📋 Planned |
-| Q6 Seller scorecard and revenue-at-risk model (Excel) | 📋 Planned |
+| Load raw data and profile tables | ✅ |
+| Data quality report | 🔄 In progress |
+| Cleaning and delivery metrics | 📋 Planned |
+| Delivery reliability analysis | 📋 Planned |
+| Late delivery vs review scores (statistical testing) | 📋 Planned |
+| Excel impact model | 📋 Planned |
 | Power BI dashboard | 📋 Planned |
-| Findings and recommendation memo | 📋 Planned |
+| Findings and recommendation | 📋 Planned |
 
 Only items marked ✅ are finished and verified. Everything else is a plan, not a result.
 
