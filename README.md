@@ -10,7 +10,7 @@ This project analyzes about 100,000 real orders (2016–2018) from an online mar
 
 | Step | Status |
 |---|---|
-| Load raw data and profile tables | 🔄 In progress |
+| Load raw data and profile tables | ✅ |
 | Data quality report | 🔄 In progress |
 | Star schema data model (PostgreSQL to Snowflake) | 📋 Planned |
 | Exploratory data analysis | 📋 Planned |

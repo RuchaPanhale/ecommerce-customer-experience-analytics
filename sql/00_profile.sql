@@ -117,3 +117,59 @@ SELECT COUNT(*) AS orders_without_review
 FROM raw.orders o
 LEFT JOIN raw.order_reviews r ON o.order_id = r.order_id
 WHERE r.order_id IS NULL;
+
+-- ========== raw.order_items ==========
+
+-- 14. Keys: rows, distinct orders, and unique (order_id, order_item_id) pairs
+SELECT
+    COUNT(*)                                  AS total_rows,
+    COUNT(DISTINCT order_id)                  AS distinct_orders,
+    COUNT(DISTINCT (order_id, order_item_id)) AS distinct_item_keys
+FROM raw.order_items;
+
+-- 15. How many orders have 1, 2, 3... items
+WITH items_per_order AS (
+    SELECT order_id, COUNT(*) AS n_items
+    FROM raw.order_items
+    GROUP BY order_id
+)
+SELECT n_items, COUNT(*) AS orders
+FROM items_per_order
+GROUP BY n_items
+ORDER BY n_items;
+
+-- 16. Nulls per column
+SELECT
+    COUNT(*) - COUNT(order_item_id)       AS null_item_id,
+    COUNT(*) - COUNT(product_id)          AS null_product,
+    COUNT(*) - COUNT(seller_id)           AS null_seller,
+    COUNT(*) - COUNT(shipping_limit_date) AS null_ship_limit,
+    COUNT(*) - COUNT(price)               AS null_price,
+    COUNT(*) - COUNT(freight_value)       AS null_freight
+FROM raw.order_items;
+
+-- 17. Price and freight: min, median, max, and zero or negative values
+SELECT
+    MIN(price)                                          AS min_price,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price)  AS median_price,
+    MAX(price)                                          AS max_price,
+    COUNT(*) FILTER (WHERE price <= 0)                  AS price_zero_or_less,
+    MIN(freight_value)                                  AS min_freight,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY freight_value) AS median_freight,
+    MAX(freight_value)                                  AS max_freight,
+    COUNT(*) FILTER (WHERE freight_value = 0)           AS freight_zero
+FROM raw.order_items;
+
+-- 18. Orphans: items whose order_id is not in raw.orders
+SELECT COUNT(*) AS items_without_order
+FROM raw.order_items i
+LEFT JOIN raw.orders o ON i.order_id = o.order_id
+WHERE o.order_id IS NULL;
+
+-- 19. The reverse: orders with no items, by status
+SELECT o.order_status, COUNT(*) AS orders_without_items
+FROM raw.orders o
+LEFT JOIN raw.order_items i ON o.order_id = i.order_id
+WHERE i.order_id IS NULL
+GROUP BY o.order_status
+ORDER BY orders_without_items DESC;
